@@ -1,3 +1,4 @@
+{% load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,20 +19,28 @@
             <div class="card-header">
               <ul class="nav nav-tabs card-header-tabs">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="true" href="#">Advice</a>
+                  <a class="nav-link active" aria-current="true" href="{% url 'adv'%}">Advice</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                  <a class="nav-link" href="{% url 'signup'%}">Sign In</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
               </ul>
             </div>
-            <div class="card-body">
-              <h5 class="card-title">My advice to you is:</h5>
-              <p class="card-text" id="adv">With supporting text below as a natural lead-in to additional content.</p>
-              <button class="btn btn-primary" onclick="getJSON(link)">Refresh Me!</button>
+            <div class="card-body bg-info">
+                <div class="row">
+                    <div class="col-4 ">
+                        <img src="{% static 'winkie.png'%}" class="img-fluid" alt="">
+                    </div>
+                    <div class="col-8 border-5 border-solid align-self-center">
+                        <h5 class="card-title">My advice to you is:</h5>
+                        <p class="card-text" id="adv">With supporting text below as a natural lead-in to additional content.</p>
+                        <button class="btn btn-primary" onclick="getJSON(link)">Refresh Me!</button>
+                    </div>
+                 
+                </div>
             </div>
           </div>
     </div>

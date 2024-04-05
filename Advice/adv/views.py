@@ -5,3 +5,6 @@ from django.http import HttpResponse
 def adv(request):
     # return HttpResponse("<h1>My advice app</h1>")
     return render(request, "index.html")
+
+def signin(request):
+   return render(request, "signin.html")
