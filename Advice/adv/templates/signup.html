@@ -1,0 +1,25 @@
+
+{% extends 'index.html'%}
+{% load static%}
+
+{% block content%}
+<div class="contain row">
+  <form method="POST">
+    {% csrf_token %}
+    
+  <label for="id_name">Name:</label>
+      {{ form.username }}
+  <label for="id_email">Email:</label>
+      {{ form.email }}
+    <br>
+  <button class="btn btn-primary mt-3">Submit</button>
+   
+  </form>
+ 
+</div>
+
+
+
+
+
+{% endblock %}
