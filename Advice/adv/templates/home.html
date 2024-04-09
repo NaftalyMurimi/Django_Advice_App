@@ -1,0 +1,39 @@
+{% extends 'index.html'%}
+{% load static%}
+
+{% block content%}
+<div class="row">
+    <div class="col-4 ">
+        <img src="{% static 'winkie.png'%}" class="img-fluid" alt="">
+    </div>
+    <div class="col-8 border-5 border-solid align-self-center">
+        <h5 class="card-title">My advice to you is:</h5>
+        <p class="card-text" id="adv">With supporting text below as a natural lead-in to additional content.</p>
+        <button class="btn btn-primary" onclick="getJSON(link)">Refresh Me!</button>
+    </div>
+ 
+</div>
+
+
+
+<!-- Advice json fetch API -->
+<script>
+    getJSON = async(url) => {
+        try{
+            const response = await fetch(url)
+            const data = await response.json();
+            console.log(data)
+            const a = document.getElementById("adv")
+            a.innerHTML = data.slip.advice
+
+        }
+        catch(error){
+            console.erroe(error)
+        }
+
+    };
+    const link ="https://api.adviceslip.com/advice";
+    getJSON(link);
+</script>
+
+{% endblock %}
