@@ -1,0 +1,55 @@
+{% extends 'index.html'%}
+{% load static%}
+
+{% block content%}
+<h3> Welcome To our user Dashboard</h3>
+<a href="{%url 'logout'%}">logout</a>
+<div class="row  ">
+    <div class="col-4  ">
+        <div class="col-7 ">
+            <img src="{% static 'avatar.png'%}" class="img-fluid" alt="">
+        </div>
+        <p class="col-5 bg-info text-align-center">Hello {{username}}</p>
+    </div>
+    
+    <div class="col-8 mt-5 ">
+        <div class="row align-items-center">
+            <div class="col align-items-center">
+                <h5 class="">My advice to you is:</h5>
+                <p class="" id="adv">With supporting text below as a natural lead-in to additional content.</p>
+                <button class="btn btn-primary" onclick="getJSON(link)">Refresh Me!</button>
+            </div>
+       
+    
+        <div class="row mt-3 d-flex justify-content-evenly">
+            <button class="btn btn-primary col-3" onclick="getJSON(link)">Send to friend</button>
+            <a class="btn btn-primary col-3" link="{%url 'generate_pdf'%}">Print</a>
+        
+        </div>
+    </div>
+ 
+</div>
+
+
+
+<!-- Advice json fetch API -->
+<script>
+    getJSON = async(url) => {
+        try{
+            const response = await fetch(url)
+            const data = await response.json();
+            console.log(data)
+            const a = document.getElementById("adv")
+            a.innerHTML = data.slip.advice
+
+        }
+        catch(error){
+            console.erroe(error)
+        }
+
+    };
+    const link ="https://api.adviceslip.com/advice";
+    getJSON(link);
+</script>
+
+{% endblock %}

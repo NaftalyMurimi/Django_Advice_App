@@ -3,19 +3,14 @@
 {% load static%}
 
 {% block content%}
-<div class="contain row">
+<div class="">
   <form method="POST">
     {% csrf_token %}
-    
-  <label for="id_name">Name:</label>
-      {{ form.username }}
-  <label for="id_email">Email:</label>
-      {{ form.email }}
-    <br>
+    {{form.as_p}}
   <button class="btn btn-primary mt-3">Submit</button>
    
   </form>
- 
+
 </div>
 
 

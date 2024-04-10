@@ -16,10 +16,10 @@ from django.forms.widgets import PasswordInput,TextInput
 class Subscribers(UserCreationForm): 
     class Meta: 
         model=User 
-        fields=['username','email','password']
+        fields=['username','email','password1','password2',]
 
 
 #Create authenitcation for to login
 class loginForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput())
-    password = forms.CharField(widget= PasswordInput)
+    password = forms.CharField(widget= PasswordInput())

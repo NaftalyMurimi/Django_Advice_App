@@ -1,0 +1,22 @@
+{% extends 'index.html'%}
+{% load static%}
+
+{% block content%}
+<div class=" row">
+  <form method="POST">
+    
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button class="btn btn-primary mt-3">Login</button>
+  </form>
+  <p>Don't have an account? <a href="{% url 'signup'%}">SignUp</a></p>
+ 
+ 
+</div>
+
+
+
+
+
+{% endblock %}
