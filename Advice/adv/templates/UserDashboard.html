@@ -7,7 +7,7 @@
 <div class="row  ">
     <div class="col-4  ">
         <div class="col-7 ">
-            <img src="{% static 'avatar.png'%}" class="img-fluid" alt="">
+          <img src="{% static 'avatar.png'%}" class="img-fluid" alt="avatar Image">
         </div>
         <p class="col-5 bg-info text-align-center">Hello {{username}}</p>
     </div>
@@ -17,13 +17,13 @@
             <div class="col align-items-center">
                 <h5 class="">My advice to you is:</h5>
                 <p class="" id="adv"></p>
-                <table class="table table-striped table-bordered bg-info">
+                <table class="table table-striped table-bordered bg-info" style="background-color: aqua;">
                     <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th >#</th>
+                        <th >First</th>
+                        <th >Last</th>
+                        <th >Handle</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -47,12 +47,12 @@
                       </tr>
                     </tbody>
                   </table>
-                <button class="btn btn-primary" onclick="getJSON(link)">Refresh Me!</button>
+                
             </div>
        
     
         <div class="row mt-3 d-flex justify-content-evenly">
-            <button class="btn btn-primary col-3" onclick="getJSON(link)">Send to friend</button>
+            <button class="btn btn-primary col-3" onclick="getJSON(link)">Refresh Me!</button>
             <a class="btn btn-primary col-3" href="{%url 'generate_pdf'%}">Print</a>
         
         </div>
