@@ -9,6 +9,18 @@ from reportlab.pdfgen import canvas
 import io
 from reportlab.lib.units import inch
 from django.urls import reverse
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from xhtml2pdf import pisa
+from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
+
+
+
+
 # Create your views here.
 def adv(request):
     # return HttpResponse("<h1>My advice app</h1>")
@@ -51,10 +63,96 @@ def UserDashboard(request):
 
 
 
-
+#logout view
 def logout(request): 
     auth.logout(request)
     return redirect('adv')
+
+#user profile change
+def userprofile(request):
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your profile has been updated successfully.')
+            return redirect('UserDashboard')
+    else:
+        form = UserChangeForm(instance=request.user)
+    return render(request, 'userprofile.html', {'form': form})
+
+# password change view
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important to update the session
+            messages.success(request, 'Your password has been changed successfully.')
+            return redirect('change_password')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'password.html', {'form': form})
+
+# genarate pdf view
+def generate_pdf(request):
+    # Render your HTML template (replace 'my_template.html' with your actual template name)
+    username = request.user.username
+    html_content = render_to_string('UserDashboard.html', {'username':username} )
+    # Create a PDF buffer
+    pdf_buffer = io.BytesIO()
+    # Generate the PDF
+    pisa.CreatePDF(html_content, dest=pdf_buffer)
+    # Set the response headers
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="advice.pdf"'
+    # Write the PDF content to the response
+    response.write(pdf_buffer.getvalue())
+    return response
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # import pdfkit
 # from django.template.loader import render_to_string
@@ -86,29 +184,6 @@ def logout(request):
     # response['Content-Disposition'] = 'attachment; filename="user_dashboard.pdf"'
     
     # return response
-
-
-from django.http import HttpResponse
-from django.template.loader import render_to_string
-from xhtml2pdf import pisa
-
-def generate_pdf(request):
-    # Render your HTML template (replace 'my_template.html' with your actual template name)
-    username = request.user.username
-    html_content = render_to_string('UserDashboard.html', {'username':username} )
-    # Create a PDF buffer
-    pdf_buffer = io.BytesIO()
-    # Generate the PDF
-    pisa.CreatePDF(html_content, dest=pdf_buffer)
-    # Set the response headers
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="advice.pdf"'
-    # Write the PDF content to the response
-    response.write(pdf_buffer.getvalue())
-    return response
-
-
-
 # import io
 # from reportlab.lib.pagesizes import letter, inch
 # from reportlab.pdfgen import canvas
