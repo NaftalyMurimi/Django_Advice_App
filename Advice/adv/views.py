@@ -73,7 +73,7 @@ def userprofile(request):
     if request.method == 'POST':
         form = UserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
-            form.save()
+            form.save()  # Save the form data to the database
             messages.success(request, 'Your profile has been updated successfully.')
             return redirect('UserDashboard')
     else:
@@ -88,7 +88,7 @@ def change_password(request):
             user = form.save()
             update_session_auth_hash(request, user)  # Important to update the session
             messages.success(request, 'Your password has been changed successfully.')
-            return redirect('change_password')
+            return redirect('UserDashboard')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'password.html', {'form': form})
