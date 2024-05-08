@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-z+8h1s=9-v$!b1$gofxjt5dfr3wibvuejv!2p73%t(=yx=hxg^
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
-
+###google api
+SITE_ID = 1
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +38,32 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    ###google api
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google'
 ]
+###google api
+SOCIALACCOUNT_LOGIN_ON_GET=True
+#??? i got a question for the next line
+AUTHENTICATION_BACKENDS = ['allauth.account.auth_backends.AuthenticationBackend']
+
+SOCIALACCOUNT_PROVIDERS = {
+ 'google': {
+ 'SCOPE': [
+ 'profile',
+ 'email',
+ ],
+ 'AUTH_PARAMS': {
+ 'access_type': 'online',
+ }
+ }
+}
+###google api
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 'your-client-id'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'your-client-secret'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -48,6 +73,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    ###google api
+    'allauth.account.middleware.AccountMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'Advice.urls'
